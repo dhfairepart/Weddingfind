@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WeddingFind – Les prestataires de votre mariage</title>
+<meta name="description" content="WeddingFind : trouvez salles, traiteurs, photographes, musiciens et décorateurs de mariage disponibles à votre date, partout en France.">
+<meta property="og:title" content="WeddingFind – Les prestataires de votre mariage">
+<meta property="og:description" content="Choisissez votre date, voyez qui est libre et demandez tous vos devis en une fois.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;1,500&family=Jost:wght@400;500&family=Pinyon+Script">
+<style>
+:root{--bg:#0A0908;--ink:#F3EBDD;--mute:#A99C86;--line:#2E2819;--gold:#CFA85A;--gl:linear-gradient(135deg,#EBCF8F,#BB8E40 55%,#E2C07A);--tint:#14110B;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Jost,system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3,.serif{font-family:"Bodoni Moda",Georgia,"Times New Roman",serif;font-weight:500;margin:0;line-height:1.15}
+a{color:inherit;text-decoration:none}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,9,8,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{font:400 38px/1 "Pinyon Script","Snell Roundhand",cursive;background:var(--gl);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:6px}
+nav{display:flex;gap:30px;color:var(--mute)}
+nav a:hover{color:var(--gold)}
+.btn{display:inline-block;padding:13px 26px;background:var(--gl);color:#0A0908;font-weight:500;letter-spacing:.04em;text-align:center}
+.btn.alt{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.btn.sm{padding:9px 18px;font-size:15px}
+.orn{display:flex;align-items:center;gap:14px;color:var(--gold);justify-content:center;margin:18px auto}
+.orn::before,.orn::after{content:"";height:1px;width:90px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{transform:scaleX(-1)}
+.hero{padding:70px 0 80px;text-align:center}
+.frame{border:1px solid var(--gold);outline:1px solid var(--gold);outline-offset:-9px;padding:64px 24px;background:radial-gradient(ellipse at 50% 0,#211A09,transparent 70%)}
+.hero h1{font-size:clamp(34px,6vw,62px);max-width:16ch;margin:0 auto}
+.hero p{color:var(--mute);max-width:46ch;margin:0 auto 30px;font-size:19px}
+section{padding:70px 0}
+h2{font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:10px}
+.sub{text-align:center;color:var(--mute);max-width:52ch;margin:0 auto 34px}
+.filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;margin-bottom:26px}
+.filters input,.filters select,.f input,.f select,.f textarea{background:#000;border:1px solid var(--line);padding:11px 14px;border-radius:0;color-scheme:dark}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:34px}
+.chip{padding:9px 18px;border:1px solid var(--line);color:var(--mute)}
+.chip[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:26px}
+.card{border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:12px;background:var(--tint);position:relative}
+.card:hover{border-color:var(--gold)}
+.top{display:flex;gap:16px;align-items:center}
+.mono{flex:none;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font:400 36px/1 "Pinyon Script",cursive;color:var(--gold);border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:3px}
+.card h3{font-size:21px}
+.meta{color:var(--mute);font-size:15px}
+.ok{color:var(--gold)}
+.busy{color:var(--mute);text-decoration:line-through}
+.price{font:italic 500 20px "Bodoni Moda",serif;color:var(--gold)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto}
+.heart{font-size:24px;color:var(--gold);padding:6px 10px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;text-align:center}
+.steps .n{font:italic 500 54px "Bodoni Moda",serif;color:var(--gold);line-height:1}
+.steps h3{font-size:21px;margin:10px 0 8px}
+.pro{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px;border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:6px;padding:44px;background:var(--tint)}
+.pro h2{text-align:left}
+.pro ul{padding-left:20px;color:var(--mute)}
+.f{display:grid;gap:14px}
+.f label{display:grid;gap:5px;color:var(--mute);font-size:15px}
+.f input,.f select,.f textarea{width:100%}
+footer{border-top:1px solid var(--line);padding:40px 0 50px;text-align:center;color:var(--mute);font-size:15px}
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--bg);border-top:1px solid var(--gold);padding:12px 22px calc(12px + env(safe-area-inset-bottom,0px));display:none;justify-content:center;gap:18px;align-items:center}
+.tray.on{display:flex}
+dialog{background:var(--bg);color:var(--ink);border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:5px;padding:34px;width:min(560px,calc(100% - 32px));max-height:calc(100% - 40px)}
+dialog::backdrop{background:rgba(0,0,0,.8)}
+.x{position:absolute;top:10px;right:14px;font-size:28px;color:var(--gold);padding:6px 10px}
+.err{color:#E8A8A0;font-size:15px;min-height:1.4em}
+.sel{padding:9px 0;border-bottom:1px solid var(--line)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:30px 0}
+@media (max-width:760px){nav{display:none}.hero{padding:30px 0 40px}.frame{padding:44px 16px}section{padding:48px 0}.pro{padding:26px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.wide{width:min(780px,calc(100% - 32px))}
+button[disabled]{opacity:.35;cursor:not-allowed}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dh{color:var(--mute);font-size:13px;text-align:center}
+.day{aspect-ratio:1;min-height:42px;border:1px solid var(--line);display:grid;place-items:center;position:relative;background:#000}
+.day.off{background:#1B1610;color:var(--mute);text-decoration:line-through}
+.day.dis{opacity:.3}
+.day i{position:absolute;bottom:5px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.rd{border:1px solid var(--line);padding:14px;margin-bottom:10px}
+.badge{font-size:13px;border:1px solid var(--gold);color:var(--gold);padding:2px 10px;white-space:nowrap}
+.badge.ok{background:var(--gl);color:#0A0908;border-color:transparent}
+.badge.no{color:var(--mute);border-color:var(--line)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{border:1px solid var(--line);padding:10px 6px;text-align:center}
+.stat b{display:block;font:italic 500 26px "Bodoni Moda",serif;color:var(--gold)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px;max-width:1000px;margin:0 auto}
+.plan{border:1px solid var(--line);padding:30px;background:var(--tint);display:flex;flex-direction:column;gap:12px}
+.plan.hot{border-color:var(--gold);outline:1px solid var(--line);outline-offset:5px}
+.plan ul{padding-left:20px;margin:0;color:var(--mute);flex:1}
+.plan .btn{width:100%}
+.fq{border-bottom:1px solid var(--line);padding:14px 0}
+.fq summary{cursor:pointer;font:500 19px "Bodoni Moda",Georgia,serif}
+.fq p{margin:10px 0 0}
+.lk{color:var(--mute);text-decoration:underline;text-underline-offset:3px;padding:4px 8px}
+.hr{display:flex;align-items:center;gap:14px}
+#hl,#hc{color:var(--gold);text-decoration:none;border:1px solid var(--line);padding:8px 14px}
+#hl:hover,#hc:hover{border-color:var(--gold)}
+.mb{display:none}
+@media (max-width:760px){.hr .btn{display:none}}
+@media (max-width:560px){#hl,#hc{padding:6px 8px;font-size:13px;line-height:1.2;max-width:92px;text-align:center}.hr{gap:8px}header .wrap{gap:8px}.logo{font-size:28px}}
+body.cv [data-h]{display:none}
+.bk{display:none;color:var(--gold);margin-bottom:16px}
+body.cv .bk{display:inline-block}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.tile{display:flex;flex-direction:column;gap:4px;padding:24px 20px;border:1px solid var(--line);background:var(--tint)}
+.tile:hover{border-color:var(--gold)}
+.tile .serif{font-size:21px}
+a.chip[aria-current=true]{border-color:var(--gold);color:var(--gold)}
+.pl{display:inline-block;font-size:12px;border:1px solid var(--gold);color:var(--gold);padding:1px 9px;margin-bottom:4px}
+.pl.pr{background:var(--gl);color:#0A0908;border-color:transparent}
+.stamp{position:absolute;top:10px;right:12px;transform:rotate(12deg);pointer-events:none;filter:drop-shadow(0 2px 5px rgba(0,0,0,.55))}
+.stamp.big{top:44px;right:34px}
+.card.st .top{padding-right:74px}
+.msgs{max-height:44vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px;margin:14px 0}
+.bb{max-width:84%;padding:9px 13px;border:1px solid var(--line);background:var(--tint);align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}
+.bb.me{align-self:flex-end;border-color:var(--gold)}
+.bb .meta{display:block;font-size:12px;margin-top:2px}
+#sh{position:fixed;inset:0;z-index:40;background:var(--bg);display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+#sh.on{display:flex}
+.sh-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sh-h .logo{font-size:30px}
+.sh-b{flex:1;display:flex;min-height:0}
+.sh-n{width:236px;border-right:1px solid var(--line);padding:14px 0;overflow:auto;flex:none}
+.sh-n button{display:block;width:100%;text-align:left;padding:11px 20px;color:var(--mute);border-left:2px solid transparent}
+.sh-n button[aria-current=true]{color:var(--gold);background:var(--tint);border-left-color:var(--gold)}
+.sh-c{flex:1;overflow:auto;padding:22px 22px 60px;min-width:0}
+.sh-c h2{text-align:left;font-size:28px;margin-bottom:16px}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+.mi{background:#000;border:1px solid var(--line);padding:8px 10px;color:var(--ink);color-scheme:dark;border-radius:0;font:inherit}
+.sl{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin:12px 0}
+.sl button{padding:10px 0;border:1px solid var(--line);background:var(--tint)}
+.sl button:hover{border-color:var(--gold)}
+.tk{display:flex;align-items:center;gap:8px;justify-content:space-between;border-bottom:1px solid var(--line)}
+.tk button:first-child{flex:1;text-align:left;padding:10px 0}
+@media (max-width:760px){.sh-b{flex-direction:column-reverse}.sh-n{width:auto;border:0;border-top:1px solid var(--gold);display:flex;overflow-x:auto;padding:0 0 env(safe-area-inset-bottom,0px)}.sh-n button{white-space:nowrap;width:auto;padding:13px 14px;border-left:0}.sh-n button[aria-current=true]{border-bottom:2px solid var(--gold)}.sh-c{padding:16px 16px 20px}}
+.hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:0 0 26px}
+.hub button{position:relative;display:flex;flex-direction:column;gap:2px;text-align:left;padding:18px 44px 16px 18px;border:1px solid var(--line);background:var(--tint);color:var(--ink)}
+.hub button:hover{border-color:var(--gold)}
+.hub .serif{font-size:19px}
+.hub .arr{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:22px}
+.hub .badge{position:absolute;top:10px;right:10px}
+button.stat{width:100%;background:var(--tint);color:var(--ink);cursor:pointer}
+button.stat.go:hover{border-color:var(--gold)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><path id="ring" d="M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0"/><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EBCF8F"/><stop offset=".55" stop-color="#BB8E40"/><stop offset="1" stop-color="#E2C07A"/></linearGradient></defs></svg>
+<header><div class="wrap"><a class="logo" href="#top" aria-label="WeddingFind, accueil">WeddingFind</a>
+<nav aria-label="Navigation"><a href="#categories">Catégories</a><a href="#fonctionnement">Fonctionnement</a><a href="#tarifs">Tarifs</a><a href="#faq">FAQ</a><a href="#pro">Devenir prestataire</a></nav>
+<div class="hr"><button class="lk" id="hl" data-plan="in"></button><button class="lk" id="hc" data-cl="1"></button><a class="btn sm" href="#prestataires">Choisir ma date</a></div></div></header>
+<main id="top">
+<div class="wrap hero" data-h><div class="frame"><div class="orn">❦</div><h1 class="serif">Le plus beau jour mérite les meilleurs prestataires.</h1><div class="orn">◆</div>
+<p>Salles, traiteurs, photographes, musiciens et décorateurs. Indiquez votre date : nous vous montrons qui est libre, partout en France.</p>
+<a class="btn" href="#categories">Explorer les catégories</a></div></div>
+
+<section id="prestataires"><div class="wrap">
+<a class="bk" href="#top">‹ Toutes les catégories</a><h2 id="ph">Nos recommandations</h2><p class="sub" id="ps"></p>
+<div class="filters"><label>Date du mariage&nbsp;<input type="date" id="dt"></label>
+<label>Région&nbsp;<select id="ct"></select></label></div>
+<div class="chips" id="chips" role="group" aria-label="Catégories"></div>
+<div class="grid" id="grid"></div></div></section>
+
+<section id="categories" data-h style="border-top:1px solid var(--line)"><div class="wrap"><h2>Explorer par catégorie</h2><p class="sub">Une page par type de prestataire, avec leurs disponibilités à votre date.</p><div class="tiles" id="tiles"></div></div></section>
+<section id="fonctionnement" data-h style="border-top:1px solid var(--line)"><div class="wrap">
+<h2>Comment ça marche</h2><div class="orn">◆</div>
+<div class="steps"><div><div class="n">1</div><h3>Choisissez votre date</h3><p class="meta">Les disponibilités des prestataires s’affichent pour votre jour précis.</p></div>
+<div><div class="n">2</div><h3>Composez votre sélection</h3><p class="meta">Comparez les styles, les tarifs et ajoutez vos favoris d’un geste.</p></div>
+<div><div class="n">3</div><h3>Recevez vos devis</h3><p class="meta">Un seul formulaire, plusieurs réponses sous 48 heures.</p></div></div></div></section>
+
+<section id="apropos" data-h style="border-top:1px solid var(--line)"><div class="wrap" style="max-width:720px;text-align:center"><h2>À propos</h2><div class="orn">❦</div>
+<p class="meta" style="font-size:18px">WeddingFind rassemble des prestataires de mariage et montre leurs disponibilités à votre date. Un seul formulaire suffit pour demander plusieurs devis. Nous accordons une attention particulière aux mariages de toutes les cultures, notamment turcs, arabes et maghrébins.</p></div></section>
+<section id="tarifs" data-h style="border-top:1px solid var(--line)"><div class="wrap"><h2>Tarifs prestataires</h2><p class="sub">Sans engagement, résiliable à tout moment. Tarifs de lancement indicatifs, hors taxes.</p>
+<div class="plans"><div class="plan"><h3 class="serif">Basic</h3><div class="price">15 € par mois</div><ul><li>Fiche dans votre catégorie</li><li>Calendrier de disponibilités</li><li>Demandes de devis</li></ul><button class="btn alt" data-plan="up">Créer mon compte</button></div>
+<div class="plan hot"><h3 class="serif">Premium</h3><div class="price">35 € par mois</div><ul><li>Tout le Basic</li><li>En tête de votre catégorie</li><li>Présence sur la page d’accueil</li><li>Badge « Coup de cœur »</li><li>Photos supplémentaires et statistiques</li></ul><button class="btn" data-plan="up">Créer mon compte</button></div>
+<div class="plan"><h3 class="serif">Prestige</h3><div class="price">50 € par mois</div><ul><li>Tout le Premium</li><li>Emplacement prioritaire en haut de la page d’accueil</li><li>Badge « Prestige »</li><li>Fiche enrichie, photos illimitées</li></ul><button class="btn alt" data-plan="up">Créer mon compte</button></div></div>
+<p class="sub" style="margin:26px auto 0">Les premiers inscrits profitent de 3 mois offerts.</p></div></section>
+<section id="pro" data-h style="padding-top:20px"><div class="wrap"><div class="pro">
+<div><h2 class="serif">Vous êtes prestataire de mariage&nbsp;?</h2><p class="meta" style="font-size:17px">Rejoignez WeddingFind et recevez des demandes de couples qui ont déjà choisi leur date.</p>
+<ul><li>Une fiche soignée, avec vos photos et vos tarifs</li><li>Un calendrier de disponibilités que vous gérez vous-même</li><li>Une messagerie pour échanger directement avec les couples</li><li>Des demandes de devis qualifiées : date, lieu, nombre d’invités</li></ul><button class="btn" data-plan="1" style="margin-top:18px">Me connecter à mon espace</button></div>
+<form class="f" id="pf"><label>Nom de votre entreprise<input type="text" id="p1"></label>
+<label>Votre activité<select id="p2"></select></label><label>Région<select id="p4"></select></label><label>Téléphone ou e-mail<input type="text" id="p3"></label>
+<div class="err" id="pe"></div><button class="btn" type="submit">Demander mon inscription</button></form></div></div></section>
+<section id="faq" data-h style="border-top:1px solid var(--line)"><div class="wrap" style="max-width:760px"><h2>Questions fréquentes</h2><div style="margin-top:26px">
+<details class="fq"><summary>Le service est-il gratuit pour les couples ?</summary><p class="meta">Oui, chercher des prestataires et demander des devis est gratuit pour les couples.</p></details>
+<details class="fq"><summary>Comment fonctionne la disponibilité par date ?</summary><p class="meta">Vous choisissez la date de votre mariage. Chaque prestataire gère son calendrier et le site affiche s’il est libre ou complet ce jour-là.</p></details>
+<details class="fq"><summary>Comment demander un devis ?</summary><p class="meta">Ajoutez les prestataires qui vous plaisent à votre sélection, puis remplissez un seul formulaire. Chaque prestataire reçoit votre demande.</p></details>
+<details class="fq"><summary>Les tarifs affichés sont-ils définitifs ?</summary><p class="meta">Non, ce sont des prix de départ indicatifs. Le prix final est précisé dans le devis du prestataire.</p></details>
+<details class="fq"><summary>Je suis prestataire, comment m’inscrire ?</summary><p class="meta">Créez votre compte dans l’espace prestataire, choisissez votre offre, puis gérez votre calendrier et vos rendez-vous.</p></details>
+</div></div></section>
+</main>
+<footer><div class="wrap"><div class="logo" style="font-size:34px">WeddingFind</div><p><button class="lk" data-legal="legal">Informations légales</button><button class="lk" data-legal="contact">Contact</button></p><p>© 2026 WeddingFind. Tous droits réservés.</p></div></footer>
+<div class="tray" id="tray"><span id="tc"></span><button class="btn sm" id="tq">Demander mes devis</button></div>
+<div id="sh" role="dialog" aria-label="Mon espace"></div>
+<dialog id="dlg" aria-label="Détail"></dialog>
+<script>
+var C=["Toutes les catégories","Salles","Traiteurs","Photo &amp; vidéo","DJ &amp; musique","Décoration","Beauté","Faire-part","Tenues","Wedding planner","Pâtisserie","Voitures de mariage"];
+var SL=["","salles","traiteurs","photo-video","dj-musique","decoration","beaute","faire-part","tenues","wedding-planner","patisserie","voitures"];
+var R=["Toutes les régions","Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne","Centre-Val de Loire","Corse","Grand Est","Hauts-de-France","Île-de-France","Normandie","Nouvelle-Aquitaine","Occitanie","Pays de la Loire","Provence-Alpes-Côte d’Azur","Guadeloupe","Martinique","Guyane","La Réunion","Mayotte"];
+var V=[
+[1,"Domaine des Lys",1,"Salle de réception, 350 invités",2800,8,"Un château et son parc, pensés pour les grandes réceptions : salon de réception, cour d’honneur et cuisine équipée pour votre traiteur.",2],
+[2,"Salle Anatolia",1,"Salle de fête, 500 invités",2200,7,"Grande salle modulable avec scène, piste de danse et espace séparé pour le henné. Parking de 150 places.",0],
+[3,"Maison Selma",2,"Cuisine turque et orientale, halal",45,1,"Buffets généreux et plats chauds dressés à l’assiette : mezzés, grillades, pâtisseries maison. Prix par personne.",1],
+[4,"Le Banquet d’Orient",2,"Cuisine libanaise et maghrébine, halal",42,8,"Un traiteur qui travaille avec les plus grandes salles de la région. Dégustation offerte avant signature.",0],
+[5,"Atelier Lumière",3,"Photo et vidéo, reportage complet",1400,8,"Reportage du henné à la soirée, album de 40 pages et film de 5 minutes livrés sous six semaines.",1],
+[6,"Studio Éclat",3,"Photo, drone et film",1900,13,"Équipe de deux opérateurs, prises de vue aériennes et montage cinématographique.",0],
+[7,"DJ Orhan &amp; Orchestre Saz",4,"Orchestre live et DJ, turc et oriental",1100,7,"Du répertoire traditionnel aux hits du moment, avec animation de la soirée et sonorisation complète.",2],
+[8,"Fleurs d’Ivoire",5,"Décoration florale et scénographie",1600,8,"Arche, centres de table et allée de cérémonie dans des tons poudrés ou dorés, sur mesure.",1],
+[9,"Maison Layla",6,"Coiffure et maquillage de la mariée",350,1,"Essai inclus, déplacement à domicile et retouches pendant la soirée. Forfait mariée, tarif invitées sur demande.",1],
+[10,"Velours &amp; Perles",5,"Location de mobilier et vaisselle",900,13,"Chaises Chiavari, tables rondes, vaisselle dorée et nappes en lin pour 100 à 400 invités.",0],
+[11,"Papier d’Or",7,"Faire-part sur mesure, impression dorée",180,8,"Faire-part, menus et plans de table personnalisés, avec dorure à chaud et papiers de création. Prix pour 100 faire-part.",1],
+[12,"Maison Zeynep",8,"Robes de mariée et tenues de henné",800,1,"Robes de mariée, caftans et tenues de henné, avec essayages sur rendez-vous et retouches incluses.",0],
+[13,"Atelier Yıldız",8,"Costumes sur mesure pour le marié",450,8,"Costumes classiques ou modernes, taillés sur mesure, avec accessoires assortis.",0],
+[14,"Instant Parfait",9,"Organisation et coordination du jour J",1500,13,"De la préparation à la soirée, une wedding planner coordonne tous vos prestataires pour que vous profitiez de chaque instant.",2],
+[15,"Délices de Meryem",10,"Pièces montées, gâteaux et baklavas",250,7,"Gâteaux de mariage personnalisés, pièces montées et plateaux de pâtisseries orientales faits maison.",1],
+[16,"Limousines Royales",11,"Voitures de prestige avec chauffeur",300,8,"Location de voitures de collection et de prestige avec chauffeur, décorées à vos couleurs, pour la mairie et la réception.",0]];
+function dflt(){var d=new Date();d.setDate(d.getDate()+240);d.setDate(d.getDate()+(6-d.getDay()+7)%7);return d.toISOString().slice(0,10)}
+var st={cat:0,reg:0,date:dflt(),sel:[],err:""};
+var $=function(i){return document.getElementById(i)};
+function fr(s){return new Date(s+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}
+function busy(id){return busyOn(id,st.date)}
+function fav(id){return st.sel.indexOf(id)>-1}
+function price(v){return"À partir de "+v[4].toLocaleString("fr-FR")+" €"+(v[2]===2?" par personne":"")}
+function avail(v){return busy(v[0])?'<span class="busy">Complet le '+fr(st.date)+'</span>':'<span class="ok">Libre le '+fr(st.date)+'</span>'}
+function ropts(all){var o=all?'<option value="0">Toutes les régions</option>':'';o+='<optgroup label="France métropolitaine">';for(var i=1;i<=13;i++)o+='<option value="'+i+'">'+R[i]+'</option>';o+='</optgroup><optgroup label="Outre-mer">';for(var j=14;j<R.length;j++)o+='<option value="'+j+'">'+R[j]+'</option>';return o+'</optgroup>'}
+$("ct").innerHTML=ropts(true);$("p4").innerHTML=ropts(false);
+$("p2").innerHTML=C.slice(1).map(function(c){return'<option>'+c+'</option>'}).join("");
+$("dt").value=st.date;$("dt").min=new Date().toISOString().slice(0,10);
+function chips(){$("chips").innerHTML=st.cat?C.slice(1).map(function(c,i){return'<a class="chip" href="#'+SL[i+1]+'" aria-current="'+(st.cat===i+1)+'">'+c+'</a>'}).join(""):""}
+function grid(){
+ var l=V.filter(function(v){return(st.cat?v[2]===st.cat:v[7]>0)&&(!st.reg||v[5]===st.reg)}).sort(function(a,b){return b[7]-a[7]||busy(a[0])-busy(b[0])});head();
+ $("grid").innerHTML=l.length?l.map(function(v){return'<article class="card'+(v[7]?' st':'')+'">'+stamp(v,78)+'<div class="top"><span class="mono" aria-hidden="true">'+v[1].charAt(0)+'</span><div><h3>'+v[1]+'</h3><span class="meta">'+C[v[2]]+', '+R[v[5]]+'</span></div></div><span class="meta">'+v[3]+'</span><span>'+avail(v)+'</span>'+rate(v)+'<div class="row"><span class="price">'+price(v)+'</span><span><button class="heart" data-fav="'+v[0]+'" aria-pressed="'+fav(v[0])+'" aria-label="Ajouter '+v[1]+' à ma sélection">'+(fav(v[0])?'♥':'♡')+'</button><button class="btn alt sm" data-v="'+v[0]+'">Voir</button></span></div></article>'}).join(""):'<p class="empty">Pas encore de prestataire pour ces filtres. Essayez une autre région, ou <a href="#pro" style="color:var(--gold);text-decoration:underline">rejoignez WeddingFind en tant que prestataire</a> dans cette région.</p>';
+ var n=st.sel.length;$("tray").className="tray"+(n?" on":"");$("tc").textContent=n+(n>1?" prestataires sélectionnés":" prestataire sélectionné")}
+function open(h,w){st.inPlan=!!w;st.inChat=false;$("dlg").className=w?"wide":"";$("dlg").innerHTML='<button class="x" data-x="1" aria-label="Fermer">×</button>'+h;if(!$("dlg").open)$("dlg").showModal()}
+function detail(id){var v=V[id-1];
+ open('<span class="mono">'+v[1].charAt(0)+'</span>'+stamp(v,96).replace('class="stamp"','class="stamp big"')+'<h2 class="serif" style="text-align:left;font-size:30px;margin:14px 0 4px">'+v[1]+'</h2><p class="meta" style="margin:0">'+C[v[2]]+', '+R[v[5]]+'. '+v[3]+'</p><p>'+avail(v)+'</p><p>'+rate(v)+'</p><p>'+v[6]+'</p><p class="price">'+price(v)+'</p>'+revs(v)+'<button class="btn" data-q1="'+v[0]+'" style="width:100%">Demander un devis</button><button class="btn alt" data-fav="'+v[0]+'" data-stay="'+v[0]+'" style="width:100%;margin-top:12px">'+(fav(v[0])?'Retirer de ma sélection':'Ajouter à ma sélection')+'</button><button class="btn alt" data-chat="'+v[0]+'" style="width:100%;margin-top:12px">Écrire au prestataire</button><button class="btn alt" data-bk="'+v[0]+'" style="width:100%;margin-top:12px">Prendre rendez-vous</button><a class="btn alt" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:12px" href="https://wa.me/?text='+encodeURIComponent(v[1].replace(/&amp;/g,"&")+" sur WeddingFind : "+location.href)+'">Partager sur WhatsApp</a>')}
+function quote(){
+ open('<h2 class="serif" style="text-align:left;font-size:28px">Votre demande de devis</h2><p class="meta">Mariage du '+fr(st.date)+'</p>'+st.sel.map(function(id){return'<div class="sel serif">'+V[id-1][1]+'</div>'}).join("")+
+ '<form class="f" id="qf" style="margin-top:14px"><label>Vos prénoms<input type="text" id="n" value="'+qv("w")+'"></label><label>Téléphone ou e-mail<input type="text" id="c" value="'+qv("c")+'"></label><label>Nombre d’invités<input type="number" id="g" min="10" value="200"></label><label>Votre budget pour cette prestation (€)<input type="number" id="qb" min="0"></label><label>Décrivez votre besoin<textarea id="m" rows="3"></textarea></label><div class="err" id="er"></div><button class="btn" type="submit">Envoyer '+(st.sel.length>1?'les '+st.sel.length+' demandes':'la demande')+'</button></form>')}
+function done(){var n=st.sel.length;st.sel=[];grid();open('<div style="text-align:center;padding:20px 0"><div class="mono" style="margin:0 auto 18px">❦</div><h2 class="serif" style="font-size:28px">Demandes envoyées</h2><p class="meta">'+(n>1?'Vos '+n+' prestataires vous répondent':'Votre prestataire vous répond')+' sous 48 heures, par téléphone ou e-mail.</p><button class="btn alt" data-x="1">Fermer</button></div>')}
+document.addEventListener("click",function(e){
+ var t=e.target.closest("button");
+ if(e.target===$("dlg")){var rc=$("dlg").getBoundingClientRect();if(e.clientX<rc.left||e.clientX>rc.right||e.clientY<rc.top||e.clientY>rc.bottom)$("dlg").close();return}
+ if(!t)return;var d=t.dataset;
+ if(d.cat!==undefined){st.cat=+d.cat;chips();grid()}
+ else if(d.x){$("dlg").close()}
+ else if(d.v){detail(+d.v)}
+ else if(d.fav){var i=st.sel.indexOf(+d.fav);if(i>-1)st.sel.splice(i,1);else st.sel.push(+d.fav);savCl();grid();if(d.stay)detail(+d.stay)}
+ else if(d.q1){if(!fav(+d.q1))st.sel.push(+d.q1);savCl();grid();if(st.cl)quote();else{st.pq=1;st.cm="up";cpLogin()}}
+ else if(t.id==="tq"){if(st.cl)quote();else{st.pq=1;st.cm="up";cpLogin()}}
+ else if(d.plan){st.pt="rdv";st.pm=0;st.msg="";st.lm=d.plan==="up"?"up":"in";plan()}
+ else if(d.legal){legal(d.legal)}
+ else if(d.cl){st.cm="in";cpl()}
+ else if(d.cm){st.cm=d.cm;cpLogin()}
+ else if(d.a){act(d.a,d.i)}
+ else if(d.sv){st.sv=d.sv;st.conv="";st.qb=null;shRender()}
+ else if(d.bk){if(st.cl){shOpen("c");st.sv="appts";st.bk={v:+d.bk,d:"",m:"physique"};shRender()}else{st.pbk=+d.bk;st.cm="in";cpLogin()}}
+ else if(d.chat){st.chatV=+d.chat;if(st.cl)chat(st.chatV);else{st.pc=st.chatV;st.cm="in";cpLogin()}}
+ else if(d.conv!==undefined){st.conv=d.conv;if(d.conv&&M[d.conv]){M[d.conv].rv=Date.now();if(DB)DB.collection("messages").doc(d.conv).set(M[d.conv]).catch(function(){})}plan()}
+ else if(d.cout){st.cl=null;try{sessionStorage.removeItem("dhcl")}catch(x){}st.sel=[];hdr();grid();shClose();$("dlg").close()}
+ else if(d.lm){st.lm=d.lm;login()}
+ else if(d.out){st.me=null;try{sessionStorage.removeItem("dhme")}catch(x){}hdr();shClose();$("dlg").close()}
+ else if(d.pt){st.pt=d.pt;plan()}
+ else if(d.pm){st.pm=Math.max(0,st.pm+(+d.pm));plan()}
+ else if(d.dy){var q=cp(st.pv),was=busyOn(st.pv,d.dy);q.blocked=q.blocked.filter(function(x){return x!==d.dy});q.opened=q.opened.filter(function(x){return x!==d.dy});(was?q.opened:q.blocked).push(d.dy);put(st.pv,q);plan()}
+ else if(d.ra){var q2=cp(st.pv),i2=q2.rdv.findIndex(function(r){return r.id===d.rid});if(i2>-1){if(d.ra==="del")q2.rdv.splice(i2,1);else q2.rdv[i2].status=d.ra;put(st.pv,q2);plan()}}
+});
+document.addEventListener("submit",function(e){e.preventDefault();
+ if(e.target.id==="qf"){if(!$("n").value.trim()||!$("c").value.trim()){$("er").textContent="Indiquez vos prénoms et un moyen de vous joindre.";return}
+  st.sel.forEach(function(id){var o={c:st.cl,v:id,cn:$("n").value.trim(),ct:$("c").value.trim(),g:+$("g").value,d:st.date,b:+$("qb").value||0,need:$("m").value.trim(),st:"req",t:Date.now()};wr("quotes","q"+Date.now()+id,o);ntf("v:"+id,"Nouvelle demande de devis de "+o.cn)});recReq();done()}
+ else if(e.target.id==="lf"){doLogin()}
+ else if(e.target.id==="sf"){doSignup()}
+ else if(e.target.id==="mf"){sendMsg(e.target)}
+ else if(e.target.id==="cs"){cSignup()}
+ else if(e.target.id==="cl"){cLogin()}
+ else if(e.target.id==="rf"){addRdv()}
+ else if(e.target.id==="pf"){if(!$("p1").value.trim()||!$("p3").value.trim()){$("pe").textContent="Indiquez le nom de votre entreprise et un moyen de vous joindre.";return}
+  $("pe").textContent="";e.target.reset();open('<div style="text-align:center;padding:20px 0"><div class="mono" style="margin:0 auto 18px">❦</div><h2 class="serif" style="font-size:28px">Demande reçue</h2><p class="meta">Nous revenons vers vous rapidement pour créer votre fiche.</p><button class="btn alt" data-x="1">Fermer</button></div>')}
+});
+$("dt").onchange=function(){if($("dt").value){st.date=$("dt").value;grid()}};
+$("ct").onchange=function(){st.reg=+$("ct").value;grid()};
+var P={},DB=null,A={},CL={},M={};
+var Q={},AP={},N={},HRS=["09:00","09:30","10:00","10:30","11:00","14:00","14:30","15:00","15:30","16:00","16:30","17:00"];
+function wr(c,id,o){(c==="quotes"?Q:c==="appts"?AP:N)[id]=o;if(DB)DB.collection(c).doc(id).set(o).catch(function(){})}
+function ntf(to,x){wr("notifs","n"+Date.now()+rnd().slice(0,4),{to:to,x:x,t:Date.now(),r:0})}
+function who(){return st.shR==="c"?"c:"+st.cl:"v:"+st.me}
+function myN(){var w=who();return Object.keys(N).filter(function(k){return N[k].to===w}).sort(function(a,b){return N[b].t-N[a].t})}
+function mine(o){var k=st.shR==="c"?"c":"v",id=st.shR==="c"?st.cl:st.me;return Object.keys(o).filter(function(i){return o[i][k]==id}).sort(function(a,b){return o[b].t-o[a].t})}
+function dt(t){return new Date(t).toLocaleString("fr-FR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
+function bd(s,v){var L={req:"En attente",sent:v?"Devis envoyé":"Devis reçu",acc:"Accepté",ref:"Refusé",ok:"Confirmé",no:"Refusé",alt:"Autre créneau proposé",cancel:"Annulé"};return'<span class="badge '+(s==="ok"||s==="acc"?"ok":s==="no"||s==="ref"||s==="cancel"?"no":"")+'">'+L[s]+'</span>'}
+function nowS(){return iso(new Date())+" "+new Date().toTimeString().slice(0,5)}
+function upc(k){return AP[k].st==="ok"&&(AP[k].d+" "+AP[k].tm)>=nowS()}
+function slotBusy(v,d,t,ex){return Object.keys(AP).some(function(k){var a=AP[k];return k!==ex&&a.v==v&&a.d===d&&a.tm===t&&(a.st==="req"||a.st==="ok")})}
+function slotsFor(v,d){if(!v||!d||new Date(d+"T12:00:00").getDay()===0||d<iso(new Date()))return[];return HRS.filter(function(h){return!slotBusy(v,d,h)&&(d+" "+h)>nowS()})}
+function tot(l){return l.reduce(function(a,x){return a+(+x.p||0)},0)}
+function kp(a){return'<div class="kp">'+a.map(function(x){var i='<b>'+x[0]+'</b><span class="meta">'+x[1]+'</span>';return x[2]?'<button class="stat go" data-sv="'+x[2]+'">'+i+'</button>':'<div class="stat">'+i+'</div>'}).join("")+'</div>'}
+function pz(n,s,p){return n+" "+(n>1?p:s)}
+function hub(c){var q=mine(Q),a=mine(AP),nn=myN().filter(function(k){return!N[k].r}).length,cv=convs(c),
+ uc=cv.filter(function(k){var la=M[k].msgs[M[k].msgs.length-1];return la.f===(c?"v":"c")&&la.t>(M[k][c?"rc":"rv"]||0)}).length,
+ ups=a.filter(upc).length,ask=a.filter(function(k){return AP[k].st==="req"||AP[k].st==="alt"}).length,
+ qs=q.filter(function(k){return Q[k].st==="sent"}).length,qr=q.filter(function(k){return Q[k].st==="req"}).length,
+ T=c?[["find","Trouver des prestataires","Explorer toutes les catégories",0],["fav","Mes favoris",pz(st.sel.length,"prestataire enregistré","prestataires enregistrés"),0],["quotes","Mes devis",pz(q.length,"demande","demandes"),qs],["appts","Rendez-vous et agenda",ups+" à venir",a.filter(function(k){return AP[k].st==="alt"}).length],["msg","Messagerie",pz(cv.length,"conversation","conversations"),uc],["org","Mon mariage","Tâches, budget et notes",0],["notif","Notifications","Les dernières nouvelles",nn]]
+ :[["quotes","Demandes de devis",pz(q.length,"demande reçue","demandes reçues"),qr],["appts","Rendez-vous",ups+" à venir",ask],["cal","Disponibilités","Gérer votre calendrier",0],["msg","Messagerie",pz(cv.length,"conversation","conversations"),uc],["notif","Notifications","Les dernières nouvelles",nn]];
+ return'<h3 class="serif" style="font-size:20px;margin:0 0 12px">Accès rapide</h3><div class="hub">'+T.map(function(t){return'<button data-sv="'+t[0]+'"><span class="serif">'+t[1]+'</span><span class="meta">'+t[2]+'</span><span class="arr" aria-hidden="true">›</span>'+(t[3]?'<span class="badge ok" aria-label="'+t[3]+' à traiter">'+t[3]+'</span>':'')+'</button>'}).join("")+'</div>'}
+function shOpen(role){st.shR=role;st.shOpen=1;st.sv="dash";st.conv="";st.qb=null;if($("dlg").open)$("dlg").close();$("sh").className="on";shRender()}
+function shClose(){st.shOpen=0;$("sh").className=""}
+function acct(){if(!st.shOpen||st.shR!=="c")shOpen("c");else shRender()}
+function plan2(){st.pv=st.me;if(!st.shOpen||st.shR!=="v")shOpen("v");else shRender()}
+function shRefresh(){if(!st.shOpen)return;var a=document.activeElement;if(!(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)))shRender()}
+function shRender(){var c=st.shR==="c",v=st.sv,nav=c?[["dash","Tableau de bord"],["find","Trouver des prestataires"],["fav","Mes favoris"],["quotes","Mes devis"],["appts","Rendez-vous et agenda"],["msg","Messagerie"],["org","Mon mariage"],["notif","Notifications"]]:[["dash","Tableau de bord"],["quotes","Demandes de devis"],["appts","Rendez-vous"],["cal","Disponibilités"],["msg","Messagerie"],["notif","Notifications"]];
+ var nn=myN().filter(function(k){return!N[k].r}).length,mu=convs(c?1:0).filter(function(k){var la=M[k].msgs[M[k].msgs.length-1];return la.f===(c?"v":"c")&&la.t>(M[k][c?"rc":"rv"]||0)}).length,m=st.sm?'<p class="ok">'+st.sm+'</p>':'';st.sm="";
+ $("sh").innerHTML='<div class="sh-h"><span class="logo">WeddingFind</span><span class="meta">'+(c?'Espace couple':'Espace prestataire')+'</span><span><button class="lk" data-a="x">Retour au site</button><button class="lk" data-a="out">Déconnexion</button></span></div><div class="sh-b"><nav class="sh-n" aria-label="Menu de l’espace">'+nav.map(function(n){return'<button data-sv="'+n[0]+'" aria-current="'+(v===n[0])+'">'+n[1]+(n[0]==="notif"&&nn?' ('+nn+')':'')+(n[0]==="msg"&&mu?' ('+mu+')':'')+'</button>'}).join("")+'</nav><main class="sh-c">'+m+(c?cview():vview())+'</main></div>'}
+function nview(){var l=myN();return'<h2 class="serif">Notifications</h2><div class="acts" style="margin:0 0 14px"><button class="btn alt sm" data-a="nread">Tout marquer comme lu</button></div>'+(l.length?l.map(function(k){var n=N[k];return'<div class="rd"'+(n.r?'':' style="border-color:var(--gold)"')+'>'+esc(n.x)+'<span class="meta" style="display:block">'+dt(n.t)+'</span></div>'}).join(""):'<p class="meta">Aucune notification.</p>')+'<p class="meta">Les notifications par e-mail seront ajoutées avec le serveur.</p>'}
+function convs(c){var l=Object.keys(M).filter(function(k){return c?M[k].c===st.cl:M[k].v===st.me});return l.sort(function(a,b){return M[b].msgs[M[b].msgs.length-1].t-M[a].msgs[M[a].msgs.length-1].t})}
+function mview(c){var k=st.conv,m=M[k];
+ if(k&&m){st.chatV=m.v;return'<h2 class="serif">Messagerie</h2><button class="lk" data-sv="msg">‹ Conversations</button><h3 class="serif" style="font-size:20px;margin:8px 0">'+(c?V[m.v-1][1]:esc(m.w))+'</h3>'+thread(k,c?"c":"v")}
+ var l=convs(c);return'<h2 class="serif">Messagerie</h2>'+(l.length?l.map(function(k){var g=M[k],la=g.msgs[g.msgs.length-1],un=la.f===(c?"v":"c")&&la.t>(g[c?"rc":"rv"]||0);return'<button class="rd" style="display:block;width:100%;text-align:left" data-a="mconv" data-i="'+k+'"><b class="serif" style="font-size:18px">'+(c?V[g.v-1][1]:esc(g.w))+(un?' <span class="badge">Nouveau</span>':'')+'</b><div class="meta">'+esc(la.x.slice(0,80))+'</div></button>'}).join(""):'<p class="meta">Aucune conversation. '+(c?'Ouvrez la fiche d’un prestataire et touchez « Écrire au prestataire ».':'Les couples peuvent vous écrire depuis votre fiche.')+'</p>')}
+function aRow(k,vend){var a=AP[k],nm=vend?esc(a.cn):V[a.v-1][1],md={physique:"Sur place",tel:"Téléphone",visio:"Visioconférence"}[a.m]||"Sur place",h='<div class="rd"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><b class="serif" style="font-size:18px">'+fr(a.d)+' à '+a.tm+'</b>'+bd(a.st)+'</div><div class="meta">'+nm+', '+md+'</div>';
+ if(a.st==="alt")h+='<p class="meta">Autre créneau proposé : '+fr(a.alt.d)+' à '+a.alt.t+'</p>';
+ h+='<div class="acts">';
+ if(vend&&a.st==="req")h+='<button class="btn sm" data-a="aok" data-i="'+k+'">Accepter</button><button class="btn alt sm" data-a="ano" data-i="'+k+'">Refuser</button><input type="date" class="mi" id="pd_'+k+'" min="'+iso(new Date())+'"><select class="mi" id="pt_'+k+'">'+HRS.map(function(t){return'<option>'+t+'</option>'}).join("")+'</select><button class="btn alt sm" data-a="aprop" data-i="'+k+'">Proposer</button>';
+ if(!vend&&a.st==="alt")h+='<button class="btn sm" data-a="aacc" data-i="'+k+'">Accepter le nouveau créneau</button><button class="btn alt sm" data-a="aref" data-i="'+k+'">Refuser</button>';
+ if(a.st==="ok"||a.st==="req"||(a.st==="alt"&&vend))h+='<button class="btn alt sm" data-a="acan" data-i="'+k+'">Annuler</button>';
+ return h+'</div></div>'}
+function cview(){var x=CL[st.cl]||{},v=st.sv,q=mine(Q),a=mine(AP),h;
+ if(v==="dash"){var ups=a.filter(upc).sort(function(p,r){return(AP[p].d+AP[p].tm)<(AP[r].d+AP[r].tm)?-1:1}),ct={};q.forEach(function(k){ct[Q[k].v]=1});a.forEach(function(k){ct[AP[k].v]=1});convs(1).forEach(function(k){ct[M[k].v]=1});
+  var uc=convs(1).filter(function(k){var la=M[k].msgs[M[k].msgs.length-1];return la.f==="v"&&la.t>(M[k].rc||0)}).length,j=x.d?Math.ceil((new Date(x.d+"T12:00:00")-new Date())/864e5):0,o=x.org||{},rec=ups.filter(function(k){return new Date(AP[k].d+"T"+AP[k].tm)-new Date()<1728e5});
+  return'<h2 class="serif">Bonjour '+esc(x.w||"")+'</h2>'+hub(1)+kp([[x.d?fr(x.d):"–","Date du mariage"+(j>0?" (J-"+j+")":""),"org"],[o.budget?o.budget.toLocaleString("fr-FR")+" €":"–","Budget prévu","org"],[Object.keys(ct).length,"Prestataires contactés","quotes"],[q.filter(function(k){return Q[k].st!=="req"}).length,"Devis reçus","quotes"],[ups.length,"Rendez-vous à venir","appts"],[uc,"Messages non lus","msg"]])+
+  (rec.length?'<h3 class="serif" style="font-size:20px">Rappels</h3>'+rec.map(function(k){return'<div class="rd" style="border-color:var(--gold)">Rendez-vous avec '+V[AP[k].v-1][1]+' le '+fr(AP[k].d)+' à '+AP[k].tm+'</div>'}).join(""):'')+
+  '<h3 class="serif" style="font-size:20px;margin-top:18px">Prochains rendez-vous</h3>'+(ups.length?ups.slice(0,3).map(function(k){return aRow(k,0)}).join(""):'<p class="meta">Aucun rendez-vous à venir.</p>')}
+ if(v==="find"){shClose();location.hash="#top";return""}
+ if(v==="fav")return'<h2 class="serif">Mes favoris</h2>'+(st.sel.length?st.sel.map(function(id){return'<div class="rd"><b class="serif" style="font-size:18px">'+V[id-1][1]+'</b><div class="meta">'+C[V[id-1][2]]+'</div><div class="acts"><button class="btn alt sm" data-a="fiche" data-i="'+id+'">Voir la fiche</button><button class="btn alt sm" data-a="bkv" data-i="'+id+'">Prendre rendez-vous</button><button class="btn alt sm" data-a="favx" data-i="'+id+'">Retirer</button></div></div>'}).join(""):'<p class="meta">Aucun favori. Touchez le cœur sur la fiche d’un prestataire.</p>')
+ if(v==="quotes")return'<h2 class="serif">Mes devis</h2><div class="acts" style="margin:0 0 14px"><button class="btn alt sm" data-a="x">Nouvelle demande depuis le site</button></div>'+(q.length?q.map(function(k){var o=Q[k];return'<div class="rd"><div style="display:flex;justify-content:space-between;gap:10px"><b class="serif" style="font-size:18px">'+V[o.v-1][1]+'</b>'+bd(o.st)+'</div><div class="meta">Demandé le '+dt(o.t)+', mariage le '+fr(o.d)+(o.b?', budget '+o.b+' €':'')+'. '+esc(o.need)+'</div>'+(o.st==="req"?'':'<table style="width:100%;margin-top:10px;border-collapse:collapse">'+o.lines.map(function(l){return'<tr><td style="padding:4px 0">'+esc(l.l)+'</td><td style="text-align:right">'+(+l.p)+' €</td></tr>'}).join("")+'</table><p class="price">Total : '+o.total+' €</p>'+(o.note?'<p class="meta">'+esc(o.note)+'</p>':''))+(o.st==="sent"?'<div class="acts"><button class="btn sm" data-a="qa" data-i="'+k+'">Accepter</button><button class="btn alt sm" data-a="qr" data-i="'+k+'">Refuser</button></div><p class="meta">Accepter un devis ne déclenche aucun paiement sur la plateforme.</p>':'')+'</div>'}).join(""):'<p class="meta">Aucune demande de devis.</p>')
+ if(v==="appts"){var b=st.bk||(st.bk={v:0,d:"",m:"physique"}),sl=slotsFor(b.v,b.d),up=a.filter(function(k){return AP[k].st==="req"||AP[k].st==="alt"||upc(k)}),pa=a.filter(function(k){return up.indexOf(k)<0});
+  return'<h2 class="serif">Rendez-vous et agenda</h2><div class="rd"><b class="serif" style="font-size:18px">Prendre rendez-vous</b><div class="f" style="margin-top:10px"><label>Prestataire<select id="bv"><option value="0">Choisir</option>'+V.map(function(r){return'<option value="'+r[0]+'"'+(r[0]===b.v?' selected':'')+'>'+r[1]+'</option>'}).join("")+'</select></label><label>Type de rendez-vous<select id="bm"><option value="physique"'+(b.m==="physique"?' selected':'')+'>Sur place</option><option value="tel"'+(b.m==="tel"?' selected':'')+'>Téléphone</option><option value="visio"'+(b.m==="visio"?' selected':'')+'>Visioconférence</option></select></label><label>Date<input type="date" id="bd" value="'+b.d+'" min="'+iso(new Date())+'"></label></div>'+(b.v&&b.d?(sl.length?'<div class="sl">'+sl.map(function(t){return'<button data-a="book" data-i="'+t+'">'+t+'</button>'}).join("")+'</div>':'<p class="meta">Aucun créneau libre ce jour-là (le dimanche est fermé).</p>'):'<p class="meta">Choisissez un prestataire et une date pour voir les créneaux libres.</p>')+'</div><h3 class="serif" style="font-size:20px;margin-top:18px">À venir</h3>'+(up.length?up.sort(function(p,r){return(AP[p].d+AP[p].tm)<(AP[r].d+AP[r].tm)?-1:1}).map(function(k){return aRow(k,0)}).join(""):'<p class="meta">Aucun rendez-vous à venir.</p>')+(pa.length?'<h3 class="serif" style="font-size:20px;margin-top:18px">Historique</h3>'+pa.map(function(k){return aRow(k,0)}).join(""):'')}
+ if(v==="msg")return mview(1)
+ if(v==="org"){var o=x.org||(x.org={tasks:["Choisir la salle","Réserver le traiteur","Choisir le photographe","Envoyer les faire-part","Essayer les tenues"].map(function(t){return{t:t,d:0}}),budget:0,exp:[],notes:""}),sp=o.exp.reduce(function(s2,e){return s2+e.a},0),dn=o.tasks.filter(function(t){return t.d}).length;
+  return'<h2 class="serif">Mon mariage</h2><h3 class="serif" style="font-size:20px">Tâches ('+dn+'/'+o.tasks.length+' terminées)</h3>'+o.tasks.map(function(t,i){return'<div class="tk"><button data-a="ttog" data-i="'+i+'">'+(t.d?'☑ ':'☐ ')+esc(t.t)+'</button><button class="lk" data-a="tdel" data-i="'+i+'" aria-label="Supprimer">✕</button></div>'}).join("")+'<div class="acts"><input class="mi" id="ot" placeholder="Nouvelle tâche" style="flex:1"><button class="btn alt sm" data-a="tadd">Ajouter</button></div>'+
+  '<h3 class="serif" style="font-size:20px;margin-top:22px">Budget</h3>'+kp([[(o.budget||0).toLocaleString("fr-FR")+" €","Budget prévu"],[sp.toLocaleString("fr-FR")+" €","Dépensé"],[((o.budget||0)-sp).toLocaleString("fr-FR")+" €","Reste"]])+'<div class="acts"><input class="mi" id="ob" type="number" min="0" placeholder="Budget total (€)" value="'+(o.budget||"")+'"><button class="btn alt sm" data-a="bsave">Enregistrer</button></div>'+o.exp.map(function(e,i){return'<div class="tk"><span style="flex:1;padding:8px 0">'+esc(e.l)+', '+e.a+' €</span><button class="lk" data-a="edel" data-i="'+i+'" aria-label="Supprimer">✕</button></div>'}).join("")+'<div class="acts"><input class="mi" id="el" placeholder="Dépense" style="flex:1"><input class="mi" id="ea" type="number" min="0" placeholder="Montant €" style="width:120px"><button class="btn alt sm" data-a="eadd">Ajouter</button></div>'+
+  '<h3 class="serif" style="font-size:20px;margin-top:22px">Notes personnelles</h3><textarea class="mi" id="on" rows="4" style="width:100%">'+esc(o.notes||"")+'</textarea><div class="acts"><button class="btn alt sm" data-a="nsave">Enregistrer les notes</button></div><p class="meta">Les documents importants seront ajoutés avec le stockage de fichiers.</p>'}
+ return nview()}
+function qBuilder(k){var q=Q[k];return'<div class="rd" style="border-color:var(--gold)"><b class="serif" style="font-size:18px">Devis pour '+esc(q.cn)+'</b><div class="meta">Mariage le '+fr(q.d)+', budget '+(q.b?q.b+' €':'non précisé')+', '+(q.g||"?")+' invités. '+esc(q.need)+'</div>'+st.ql.map(function(l,i){return'<div class="acts"><input class="mi" id="ql'+i+'" placeholder="Prestation" value="'+esc(l.l)+'" style="flex:1;min-width:150px"><input class="mi" id="qp'+i+'" type="number" min="0" placeholder="Prix €" value="'+esc(l.p)+'" style="width:110px"></div>'}).join("")+'<div class="acts"><button class="btn alt sm" data-a="qadd">+ Ajouter une ligne</button></div><p class="price">Total : '+tot(st.ql)+' €</p><textarea class="mi" id="qn" rows="2" placeholder="Message pour le couple (facultatif)" style="width:100%">'+esc(st.qn||"")+'</textarea><div class="acts"><button class="btn" data-a="qsend" data-i="'+k+'">Envoyer le devis</button><button class="btn alt" data-a="qcancel">Fermer</button></div><div class="err" id="qe"></div></div>'}
+function readQ(){st.ql=st.ql.map(function(l,i){return{l:$("ql"+i)?$("ql"+i).value:l.l,p:$("qp"+i)?$("qp"+i).value:l.p}});if($("qn"))st.qn=$("qn").value}
+function vview(){var v=st.sv,q=mine(Q),a=mine(AP);
+ if(v==="dash"){var ups=a.filter(upc),ct={};q.forEach(function(k){ct[Q[k].c]=1});var pl=V[st.me-1][7]==2?"Prestige":V[st.me-1][7]==1?"Premium":"Basic",uc=Object.keys(M).filter(function(k){var m=M[k],la=m.msgs[m.msgs.length-1];return m.v===st.me&&la.f==="c"&&la.t>(m.rv||0)}).length;
+  return'<h2 class="serif">'+V[st.me-1][1]+'</h2>'+hub(0)+kp([[q.length,"Demandes reçues","quotes"],[q.filter(function(k){return Q[k].st==="req"}).length,"Devis à envoyer","quotes"],[q.filter(function(k){return Q[k].st==="sent"}).length,"Devis en attente de réponse","quotes"],[q.filter(function(k){return Q[k].st==="acc"}).length,"Devis acceptés","quotes"],[Object.keys(ct).length,"Clients contactés","quotes"],[ups.length,"Rendez-vous à venir","appts"],[uc,"Messages non lus","msg"],[pl,"Abonnement actuel"]])+'<h3 class="serif" style="font-size:20px">Prochains rendez-vous</h3>'+(ups.length?ups.slice(0,3).map(function(k){return aRow(k,1)}).join(""):'<p class="meta">Aucun rendez-vous à venir.</p>')}
+ if(v==="quotes"){readQ0();return'<h2 class="serif">Demandes de devis</h2>'+(st.qb&&Q[st.qb]?qBuilder(st.qb):"")+(q.length?q.map(function(k){var o=Q[k];return'<div class="rd"><div style="display:flex;justify-content:space-between;gap:10px"><b class="serif" style="font-size:18px">'+esc(o.cn)+'</b>'+bd(o.st,1)+'</div><div class="meta">'+dt(o.t)+', mariage le '+fr(o.d)+(o.b?', budget '+o.b+' €':'')+', '+(o.g||"?")+' invités. '+esc(o.need)+'</div>'+(o.total?'<p class="price">Total : '+o.total+' €</p>':'')+'<div class="acts">'+(o.st==="req"?'<button class="btn sm" data-a="qnew" data-i="'+k+'">Créer le devis</button>':o.st==="sent"?'<button class="btn alt sm" data-a="qnew" data-i="'+k+'">Modifier le devis</button>':'')+'</div></div>'}).join(""):'<p class="meta">Aucune demande pour le moment.</p>')}
+ if(v==="appts"){var up=a.filter(function(k){return AP[k].st==="req"||AP[k].st==="alt"||upc(k)}),pa=a.filter(function(k){return up.indexOf(k)<0});
+  return'<h2 class="serif">Rendez-vous</h2>'+(up.length?up.sort(function(p,r){return(AP[p].d+AP[p].tm)<(AP[r].d+AP[r].tm)?-1:1}).map(function(k){return aRow(k,1)}).join(""):'<p class="meta">Aucune demande ni rendez-vous à venir.</p>')+'<div class="rd"><b class="serif" style="font-size:18px">Ajouter un rendez-vous</b><div class="acts"><input class="mi" type="date" id="md" min="'+iso(new Date())+'"><select class="mi" id="mt2">'+HRS.map(function(t){return'<option>'+t+'</option>'}).join("")+'</select><input class="mi" id="mw" placeholder="Nom du client" style="flex:1"><button class="btn alt sm" data-a="man">Ajouter</button></div></div>'+(pa.length?'<h3 class="serif" style="font-size:20px;margin-top:18px">Historique</h3>'+pa.map(function(k){return aRow(k,1)}).join(""):'')}
+ if(v==="cal"){st.pv=st.me;return'<h2 class="serif">Disponibilités</h2><p class="meta">Les rendez-vous sont proposés du lundi au samedi sur les créneaux libres. Fermez ici les dates de mariage où vous êtes complet.</p>'+calHtml({rdv:a.map(function(k){return{date:AP[k].d,status:AP[k].st}})})}
+ if(v==="msg")return mview(0)
+ return nview()}
+function readQ0(){}
+function act(a,i){var c=st.shR==="c",x=CL[st.cl];
+ function sv(){if(x&&DB)DB.collection("clients").doc(st.cl).set(x).catch(function(){})}
+ if(a==="x"){shClose();return}
+ if(a==="out"){if(c){st.cl=null;try{sessionStorage.removeItem("dhcl")}catch(e){}st.sel=[]}else{st.me=null;try{sessionStorage.removeItem("dhme")}catch(e){}}hdr();grid();shClose();return}
+ if(a==="fiche"){shClose();detail(+i);return}
+ if(a==="bkv"){st.sv="appts";st.bk={v:+i,d:"",m:"physique"}}
+ if(a==="favx"){st.sel.splice(st.sel.indexOf(+i),1);savCl();grid()}
+ if(a==="mconv"){st.conv=i;var mm=M[i];if(mm){mm[c?"rc":"rv"]=Date.now();if(DB)DB.collection("messages").doc(i).set(mm).catch(function(){})}}
+ if(a==="nread"){myN().forEach(function(k){N[k].r=1;wr("notifs",k,N[k])})}
+ if(a==="qa"||a==="qr"){var o=Q[i];o.st=a==="qa"?"acc":"ref";wr("quotes",i,o);ntf("v:"+o.v,"Votre devis a été "+(a==="qa"?"accepté":"refusé")+" par "+o.cn);st.sm=a==="qa"?"Devis accepté.":"Devis refusé."}
+ if(a==="book"){var b=st.bk;if(slotBusy(b.v,b.d,i)){st.sm="Ce créneau vient d’être pris."}else{wr("appts","a"+Date.now(),{c:st.cl,v:b.v,cn:x.w,d:b.d,tm:i,m:b.m,st:"req",t:Date.now()});ntf("v:"+b.v,"Nouvelle demande de rendez-vous de "+x.w+" le "+fr(b.d)+" à "+i);st.sm="Demande envoyée. Vous serez notifié de la réponse.";b.d=""}}
+ if(a==="aok"){var p=AP[i];if(slotBusy(p.v,p.d,p.tm,i)){st.sm="Créneau déjà occupé."}else{p.st="ok";wr("appts",i,p);ntf("c:"+p.c,V[p.v-1][1]+" a accepté votre rendez-vous du "+fr(p.d)+" à "+p.tm);st.sm="Rendez-vous accepté, il apparaît dans les deux agendas."}}
+ if(a==="ano"){var p2=AP[i];p2.st="no";wr("appts",i,p2);ntf("c:"+p2.c,V[p2.v-1][1]+" a refusé votre demande de rendez-vous.")}
+ if(a==="aprop"){var d2=$("pd_"+i).value,t2=$("pt_"+i).value;if(!d2){st.sm="Choisissez une date à proposer."}else{var p3=AP[i];p3.st="alt";p3.alt={d:d2,t:t2};wr("appts",i,p3);ntf("c:"+p3.c,V[p3.v-1][1]+" vous propose un autre créneau : "+fr(d2)+" à "+t2)}}
+ if(a==="aacc"){var p4=AP[i];if(slotBusy(p4.v,p4.alt.d,p4.alt.t,i)){st.sm="Ce créneau n’est plus libre."}else{p4.d=p4.alt.d;p4.tm=p4.alt.t;p4.st="ok";delete p4.alt;wr("appts",i,p4);ntf("v:"+p4.v,p4.cn+" a accepté le nouveau créneau du "+fr(p4.d)+" à "+p4.tm)}}
+ if(a==="aref"){var p5=AP[i];p5.st="no";wr("appts",i,p5);ntf("v:"+p5.v,p5.cn+" a refusé le créneau proposé.")}
+ if(a==="acan"){var p6=AP[i];p6.st="cancel";wr("appts",i,p6);if(c)ntf("v:"+p6.v,p6.cn+" a annulé le rendez-vous du "+fr(p6.d));else if(p6.c)ntf("c:"+p6.c,V[p6.v-1][1]+" a annulé le rendez-vous du "+fr(p6.d))}
+ if(a==="man"){var d3=$("md").value,w3=$("mw").value.trim(),t3=$("mt2").value;if(!d3||!w3)st.sm="Indiquez la date et le nom du client.";else if(slotBusy(st.me,d3,t3))st.sm="Ce créneau est déjà pris.";else wr("appts","a"+Date.now(),{c:"",v:st.me,cn:w3,d:d3,tm:t3,m:"physique",st:"ok",t:Date.now()})}
+ if(a==="qnew"){var q=Q[i];st.qb=i;st.ql=q.lines?q.lines.map(function(l){return{l:l.l,p:l.p}}):[{l:"",p:""}];st.qn=q.note||""}
+ if(a==="qadd"){readQ();st.ql.push({l:"",p:""})}
+ if(a==="qcancel"){st.qb=null}
+ if(a==="qsend"){readQ();var ls=st.ql.filter(function(l){return l.l.trim()&&+l.p>0});if(!ls.length){st.sm="Ajoutez au moins une prestation avec un prix."}else{var q2=Q[i];q2.lines=ls.map(function(l){return{l:l.l.trim(),p:+l.p}});q2.total=tot(q2.lines);q2.note=(st.qn||"").trim();q2.st="sent";wr("quotes",i,q2);ntf("c:"+q2.c,V[q2.v-1][1]+" vous a envoyé un devis de "+q2.total+" €");st.qb=null;st.sm="Devis envoyé au couple."}}
+ if(c&&x){var o2=x.org||(x.org={tasks:[],budget:0,exp:[],notes:""});
+  if(a==="ttog"){o2.tasks[i].d=o2.tasks[i].d?0:1;sv()}
+  if(a==="tdel"){o2.tasks.splice(i,1);sv()}
+  if(a==="tadd"){var t4=$("ot").value.trim();if(t4){o2.tasks.push({t:t4,d:0});sv()}}
+  if(a==="bsave"){o2.budget=+$("ob").value||0;sv()}
+  if(a==="eadd"){var l4=$("el").value.trim(),a4=+$("ea").value;if(l4&&a4>0){o2.exp.push({l:l4,a:a4});sv()}}
+  if(a==="edel"){o2.exp.splice(i,1);sv()}
+  if(a==="nsave"){o2.notes=$("on").value;sv();st.sm="Notes enregistrées."}}
+ shRender()}
+document.addEventListener("change",function(e){var i=e.target.id;if(st.shOpen&&st.bk&&(i==="bv"||i==="bm"||i==="bd")){if(i==="bv")st.bk.v=+e.target.value;if(i==="bm")st.bk.m=e.target.value;if(i==="bd")st.bk.d=e.target.value;shRender()}});
+
+function thread(id,role){var m=M[id]||{msgs:[]};
+ return'<div class="msgs" id="ms">'+(m.msgs.length?m.msgs.map(function(g){return'<div class="bb'+(g.f===role?' me':'')+'">'+esc(g.x)+'<span class="meta">'+new Date(g.t).toLocaleString("fr-FR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})+'</span></div>'}).join(""):'<p class="meta">Aucun message pour le moment.</p>')+'</div><form class="f" id="mf" data-id="'+id+'" data-r="'+role+'"><label>Votre message<textarea id="mt" rows="2" maxlength="1000"></textarea></label><div class="err" id="me"></div><button class="btn" type="submit">Envoyer</button></form>'}
+function chat(vid){var id=st.cl+"_"+vid;st.chatV=vid;
+ open('<h2 class="serif" style="text-align:left;font-size:26px;margin-bottom:2px">'+V[vid-1][1]+'</h2><p class="meta" style="margin:0">Posez vos questions : disponibilité, tarifs, détails de la prestation.</p>'+thread(id,"c"));st.inChat=true;var ms=$("ms");if(ms)ms.scrollTop=ms.scrollHeight}
+function sendMsg(f){var id=f.dataset.id,r=f.dataset.r,t=$("mt").value.trim(),e=$("me");if(!t)return;
+ if(!DB){e.textContent="Connexion à Claude requise pour envoyer un message dans cette démo.";return}
+ var m=M[id]?JSON.parse(JSON.stringify(M[id])):{c:st.cl,v:st.chatV,w:CL[st.cl]?CL[st.cl].w:"",msgs:[]};
+ m.msgs.push({f:r,x:t.slice(0,1000),t:Date.now()});m.msgs=m.msgs.slice(-200);if(r==="v")m.rv=Date.now();M[id]=m;
+ DB.collection("messages").doc(id).set(m).catch(function(){var x=$("me");if(x)x.textContent="Message non envoyé : connexion requise."});
+ ntf(r==="c"?"v:"+m.v:"c:"+m.c,"Nouveau message de "+(r==="c"?m.w:V[m.v-1][1]));if(st.shOpen)shRender();else if(r==="c")chat(st.chatV);else plan()}
+function unr(){var n=Object.keys(M).filter(function(k){var m=M[k],la=m.msgs[m.msgs.length-1];return m.v===st.pv&&la&&la.f==="c"&&la.t>(m.rv||0)}).length;return n?" ("+n+")":""}
+function msgHtml(){var m=M[st.conv];
+ if(st.conv&&m&&m.v===st.pv)return'<button class="lk" data-conv="">‹ Conversations</button><h3 class="serif" style="font-size:20px;margin:6px 0">'+esc(m.w)+'</h3>'+thread(st.conv,"v");
+ var l=Object.keys(M).filter(function(k){return M[k].v===st.pv}).sort(function(a,b){return M[b].msgs[M[b].msgs.length-1].t-M[a].msgs[M[a].msgs.length-1].t});
+ return l.length?l.map(function(k){var g=M[k],la=g.msgs[g.msgs.length-1],un=la.f==="c"&&la.t>(g.rv||0);return'<button class="rd" style="display:block;width:100%;text-align:left" data-conv="'+k+'"><b class="serif" style="font-size:18px">'+esc(g.w)+(un?' <span class="badge">Nouveau</span>':'')+'</b><div class="meta">'+esc(la.x.slice(0,80))+'</div></button>'}).join(""):'<p class="meta">Aucun message pour le moment. Les couples peuvent vous écrire depuis votre fiche.</p>'}
+function myMsgs(){var l=Object.keys(M).filter(function(k){return M[k].c===st.cl});return'<h3 class="serif" style="font-size:20px;margin:20px 0 6px">Mes messages</h3>'+(l.length?l.map(function(k){var g=M[k],la=g.msgs[g.msgs.length-1];return'<button class="sel" style="display:block;width:100%;text-align:left" data-chat="'+g.v+'">'+V[g.v-1][1]+'<br><span class="meta">'+esc(la?la.x.slice(0,70):"")+'</span></button>'}).join(""):'<p class="meta">Aucune conversation.</p>')}
+function rerenderMsg(){if(!$("dlg").open)return;var t=$("mt"),keep=t?t.value:"",foc=document.activeElement&&document.activeElement.id==="mt";
+ if(st.inChat&&st.cl)chat(st.chatV);else if(st.inPlan&&st.pt==="msg")plan();else return;
+ var n=$("mt");if(n&&keep){n.value=keep;if(foc)n.focus()}}
+function bdg(v){return v[7]==2?'<span class="pl pr">Prestige</span>':v[7]==1?'<span class="pl">Coup de cœur</span>':''}
+function stamp(v,z){if(!v[7])return"";var pr=v[7]==2,c=pr?"#0A0908":"#CFA85A";
+ return'<svg class="stamp" width="'+z+'" height="'+z+'" viewBox="0 0 100 100" role="img" aria-label="'+(pr?"Prestataire Prestige":"Prestataire coup de cœur")+'"><circle cx="50" cy="50" r="47" fill="'+(pr?'url(#sg)':'rgba(10,9,8,.6)')+'" stroke="#CFA85A" stroke-width="2"/><circle cx="50" cy="50" r="43.5" fill="none" stroke="'+c+'" stroke-width=".8"/><circle cx="50" cy="50" r="26" fill="none" stroke="'+c+'" stroke-width=".8"/><text font-family="Jost,sans-serif" font-size="8" font-weight="500" fill="'+c+'"><textPath href="#ring" textLength="214" lengthAdjust="spacing">'+(pr?'★ SÉLECTION PRESTIGE ★ EXCELLENCE ★':'★ COUP DE CŒUR ★ WEDDINGFIND ★')+'</textPath></text>'+(pr?'<text x="50" y="55.5" text-anchor="middle" font-family="Pinyon Script,cursive" font-size="18" fill="'+c+'">Prestige</text>':'<text text-anchor="middle" font-family="Pinyon Script,cursive" font-size="14.5" fill="'+c+'"><tspan x="50" y="48">Coup de</tspan><tspan x="50" y="62">cœur</tspan></text>')+'</svg>'}
+function head(){var t=st.cat?C[st.cat]:"Nos recommandations";$("ph").innerHTML=t;$("ps").textContent=st.cat?"Tous les prestataires de la catégorie, avec leurs disponibilités à votre date.":"Les prestataires Prestige et Premium sélectionnés pour votre mariage.";chips();document.title=(st.cat?t.replace(/&amp;/g,"&")+" – ":"")+"WeddingFind – Les prestataires de votre mariage"}
+function tiles(){$("tiles").innerHTML=C.slice(1).map(function(c,i){var n=V.filter(function(v){return v[2]===i+1}).length;return'<a class="tile" href="#'+SL[i+1]+'"><span class="serif">'+c+'</span><span class="meta">'+n+(n>1?' prestataires':' prestataire')+'</span></a>'}).join("")}
+function route(){var h=location.hash.slice(1),i=SL.indexOf(h);st.cat=i>0?i:0;document.body.classList.toggle("cv",i>0);grid();if(i>0)window.scrollTo(0,0);else if(h&&$(h))$(h).scrollIntoView()}
+window.addEventListener("hashchange",route);
+function qv(k){return esc(st.cl&&CL[st.cl]?CL[st.cl][k]:"")}
+function savCl(){var x=CL[st.cl];if(!x||!DB)return;x.favs=st.sel.slice();DB.collection("clients").doc(st.cl).set(x).catch(function(){})}
+function recReq(){var x=CL[st.cl];if(!x)return;x.reqs=(x.reqs||[]).concat(st.sel.map(function(id){return{v:id,d:st.date}}));x.favs=[];if(DB)DB.collection("clients").doc(st.cl).set(x).catch(function(){})}
+function cid(c){return Object.keys(CL).filter(function(k){return CL[k].c===c})[0]}
+function cpl(){hdr();if(!st.cl){cpLogin();return}acct()}
+function cpLogin(){var up=st.cm==="up";
+ open('<h2 class="serif" style="text-align:left;font-size:28px;margin-bottom:6px">'+(up?'Créer mon compte couple':'Espace couple')+'</h2><p class="meta" style="margin:0 0 16px">'+(up?'Retrouvez votre sélection, votre date et vos demandes de devis.':'Connectez-vous pour retrouver votre sélection et vos demandes.')+'</p>'+
+ (up?'<form class="f" id="cs"><label>Vos prénoms<input type="text" id="cw"></label><label>E-mail ou téléphone<input type="text" id="cc" autocomplete="username" autocapitalize="none"></label><label>Date du mariage<input type="date" id="cd" value="'+st.date+'" min="'+iso(new Date())+'"></label><label>Mot de passe (8 caractères minimum)<input type="password" id="cp" autocomplete="new-password"></label><div class="err" id="ce"></div><button class="btn" type="submit">Créer mon compte</button></form><p style="text-align:center;margin-top:16px"><button class="chip" data-cm="in">J’ai déjà un compte</button></p>'
+ :'<form class="f" id="cl"><label>E-mail ou téléphone<input type="text" id="cc" autocomplete="username" autocapitalize="none"></label><label>Mot de passe<input type="password" id="cp" autocomplete="current-password"></label><div class="err" id="ce"></div><button class="btn" type="submit">Me connecter</button></form><p style="text-align:center;margin-top:16px"><button class="chip" data-cm="up">Créer mon compte</button></p>'+(st.local?'<p class="meta" style="text-align:center;margin-top:14px">Démo : e-mail <b>demo@weddingfind.fr</b>, mot de passe <b>demo12345</b></p>':'')))}
+function setCl(id){st.cl=id;st.clInit=1;try{sessionStorage.setItem("dhcl",id)}catch(x){}var c=CL[id];if(c){if(c.d)st.date=c.d;st.sel=(c.favs||[]).slice()}hdr();$("dt").value=st.date;grid();if(st.pc){var pc=st.pc;st.pc=0;chat(pc)}else if(st.pq){st.pq=0;quote()}else{acct();if(st.pbk){st.sv="appts";st.bk={v:st.pbk,d:"",m:"physique"};st.pbk=0;shRender()}}}
+async function cLogin(){var e=$("ce"),c=$("cc").value.trim().toLowerCase(),pw=$("cp").value,id=cid(c);
+ if(!c||!pw){e.textContent="Indiquez votre e-mail ou téléphone et votre mot de passe.";return}
+ try{if(id&&(await hpw(pw,CL[id].salt))===CL[id].h){setCl(id);return}}catch(x){}
+ e.textContent=DB?"Identifiant ou mot de passe incorrect.":"Connexion à Claude requise pour utiliser les comptes de cette démo."}
+async function cSignup(){var e=$("ce"),w=$("cw").value.trim(),c=$("cc").value.trim().toLowerCase(),d=$("cd").value,pw=$("cp").value;
+ if(!DB){e.textContent="Connexion à Claude requise pour créer un compte dans cette démo.";return}
+ if(!w||!c){e.textContent="Indiquez vos prénoms et un e-mail ou un téléphone.";return}
+ if(!d){e.textContent="Indiquez la date de votre mariage.";return}
+ if(pw.length<8){e.textContent="Le mot de passe doit contenir au moins 8 caractères.";return}
+ if(cid(c)){e.textContent="Un compte existe déjà avec ce contact.";return}
+ var id=rnd(),salt=rnd(),h=await hpw(pw,salt),x={w:w,c:c,d:d,salt:salt,h:h,favs:st.sel.slice(),reqs:[]};
+ try{await DB.collection("clients").doc(id).set(x);CL[id]=x;setCl(id)}catch(y){e.textContent="Compte non créé : connexion requise."}}
+function acct0(){var x=CL[st.cl];if(!x){open('<p class="meta">Chargement de votre compte…</p>');return}
+ open('<h2 class="serif" style="text-align:left;font-size:28px;margin-bottom:4px">Mon compte</h2><p class="meta" style="margin:0 0 14px">'+esc(x.w)+', mariage le '+fr(x.d)+'</p><h3 class="serif" style="font-size:20px;margin:16px 0 6px">Ma sélection ('+st.sel.length+')</h3>'+(st.sel.length?st.sel.map(function(id){return'<div class="sel">'+V[id-1][1]+'</div>'}).join(""):'<p class="meta">Aucun prestataire pour le moment.</p>')+
+ '<h3 class="serif" style="font-size:20px;margin:20px 0 6px">Mes demandes de devis</h3>'+((x.reqs||[]).length?x.reqs.map(function(r){return'<div class="sel">'+V[r.v-1][1]+'<br><span class="meta">Envoyée pour le '+fr(r.d)+'</span></div>'}).join(""):'<p class="meta">Aucune demande envoyée.</p>')+myMsgs()+'<button class="btn alt" data-cout="1" style="margin-top:20px;width:100%">Se déconnecter</button>')}
+function rt(v){return{r:(4.5+(v[0]*3%5)/10).toFixed(1).replace(".",","),n:6+v[0]*4,ver:v[0]%3!==0}}
+function rate(v){var q=rt(v);return'<span class="meta"><span class="ok">★ '+q.r+'</span> ('+q.n+' avis)'+(q.ver?' <span class="ok">✓ Vérifié</span>':'')+'</span>'}
+var RV=[["Camille et Yanis","Équipe à l’écoute, tout s’est déroulé comme prévu."],["Elif et Mehmet","Très professionnel et ponctuel, nous recommandons."],["Sarah et Karim","Un moment parfait, merci pour votre sérieux."]];
+function revs(v){return'<p class="meta" style="margin:0 0 6px">Exemples d’avis de démonstration</p>'+[0,1].map(function(i){var r=RV[(v[0]+i)%3];return'<div class="sel"><b>'+r[0]+'</b><br><span class="meta">'+r[1]+'</span></div>'}).join("")+'<div style="height:14px"></div>'}
+function statsHtml(p){var dv=p.rdv.filter(function(r){return r.type==="Demande de devis"}),tr=dv.filter(function(r){return r.status!=="new"}).length,rv=p.rdv.filter(function(r){return r.type!=="Demande de devis"&&r.status==="ok"}).length;
+ return'<div class="stats" style="margin-top:16px"><div class="stat"><b>'+dv.length+'</b><span class="meta">Demandes de devis</span></div><div class="stat"><b>'+rv+'</b><span class="meta">Rendez-vous confirmés</span></div><div class="stat"><b>'+(dv.length?Math.round(tr/dv.length*100)+' %':'–')+'</b><span class="meta">Taux de réponse</span></div></div>'}
+var LG=[["Mentions légales","Éditeur : [nom ou raison sociale], [statut juridique], SIRET [à compléter], adresse [à compléter]. Directeur de la publication : [nom]. Contact : [e-mail]. Hébergeur : [nom et adresse de l’hébergeur]."],
+["Conditions d’utilisation","WeddingFind met en relation des couples et des prestataires de mariage. Les contrats sont conclus directement entre eux, WeddingFind n’en est pas partie. Chaque prestataire est responsable du contenu de sa fiche, de ses tarifs et de ses disponibilités."],
+["Conditions de vente des abonnements","Les abonnements prestataires sont mensuels, sans engagement et résiliables à tout moment. Les tarifs sont indiqués hors taxes. Modalités de paiement et de remboursement : [à compléter]."],
+["Confidentialité","Nous collectons les prénoms, le moyen de contact, la date du mariage et le nombre d’invités uniquement pour transmettre votre demande aux prestataires choisis. Vous pouvez demander l’accès, la rectification ou la suppression de vos données à [e-mail]. Durée de conservation : [à compléter]."]];
+function legal(k){if(k==="contact"){open('<h2 class="serif" style="text-align:left;font-size:28px">Contact</h2><p class="meta">Écrivez-nous à [votre e-mail] ou sur WhatsApp au [votre numéro].</p>');return}
+ open('<h2 class="serif" style="text-align:left;font-size:28px">Informations légales</h2><p class="err">Modèle à compléter et à faire valider avant la mise en ligne.</p>'+LG.map(function(x){return'<details class="fq"><summary>'+x[0]+'</summary><p class="meta">'+x[1]+'</p></details>'}).join(""))}
+async function hpw(pw,salt){var k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);var b=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(salt),iterations:150000},k,256);return Array.from(new Uint8Array(b)).map(function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
+function rnd(){var a=new Uint8Array(12);crypto.getRandomValues(a);return Array.from(a).map(function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
+function login(){var up=st.lm==="up",tk=Object.keys(A);
+ open('<h2 class="serif" style="text-align:left;font-size:28px;margin-bottom:6px">'+(up?'Créer mon compte':'Espace prestataire')+'</h2><p class="meta" style="margin:0 0 16px">'+(up?'Choisissez votre fiche, un identifiant et un mot de passe.':'Connectez-vous pour gérer votre calendrier et vos rendez-vous.')+'</p>'+
+ (up?'<form class="f" id="sf"><label>Votre fiche<select id="sv">'+V.filter(function(v){return tk.indexOf(String(v[0]))<0}).map(function(v){return'<option value="'+v[0]+'">'+v[1]+'</option>'}).join("")+'</select></label><label>Identifiant<input type="text" id="su" autocomplete="username" autocapitalize="none"></label><label>Mot de passe (8 caractères minimum)<input type="password" id="sp" autocomplete="new-password"></label><div class="err" id="le"></div><button class="btn" type="submit">Créer mon compte</button></form><p style="text-align:center;margin-top:16px"><button class="chip" data-lm="in">J’ai déjà un compte</button></p>'
+ :'<form class="f" id="lf"><label>Identifiant<input type="text" id="lu" autocomplete="username" autocapitalize="none"></label><label>Mot de passe<input type="password" id="lp" autocomplete="current-password"></label><div class="err" id="le"></div><button class="btn" type="submit">Me connecter</button></form><p style="text-align:center;margin-top:16px"><button class="chip" data-lm="up">Créer mon compte</button></p>'+(st.local?'<p class="meta" style="text-align:center;margin-top:14px">Démo : identifiant <b>demo</b>, mot de passe <b>demo12345</b></p>':'')))}
+async function doLogin(){var e=$("le"),u=$("lu").value.trim().toLowerCase(),pw=$("lp").value;
+ if(!u||!pw){e.textContent="Indiquez votre identifiant et votre mot de passe.";return}
+ var id=Object.keys(A).filter(function(k){return A[k].user===u})[0];
+ try{if(id&&(await hpw(pw,A[id].salt))===A[id].hash){st.me=+id;try{sessionStorage.setItem("dhme",id)}catch(x){}st.pt="rdv";st.pm=0;st.msg="";plan();return}}catch(x){}
+ e.textContent=DB?"Identifiant ou mot de passe incorrect.":"Connexion à Claude requise pour utiliser les comptes de cette démo."}
+async function doSignup(){var e=$("le"),sv=$("sv").value,u=$("su").value.trim().toLowerCase(),pw=$("sp").value;
+ if(!DB){e.textContent="Connexion à Claude requise pour créer un compte dans cette démo.";return}
+ if(!sv){e.textContent="Toutes les fiches de démonstration ont déjà un compte.";return}
+ if(!/^[a-z0-9._-]{3,30}$/.test(u)){e.textContent="Identifiant : 3 à 30 caractères (lettres, chiffres, point, tiret).";return}
+ if(pw.length<8){e.textContent="Le mot de passe doit contenir au moins 8 caractères.";return}
+ if(Object.keys(A).some(function(k){return A[k].user===u})){e.textContent="Cet identifiant est déjà utilisé.";return}
+ var salt=rnd(),h=await hpw(pw,salt);
+ try{await DB.collection("accounts").doc(sv).set({user:u,salt:salt,hash:h});A[sv]={user:u,salt:salt,hash:h};st.me=+sv;try{sessionStorage.setItem("dhme",sv)}catch(x){}st.pt="rdv";st.pm=0;st.msg="";plan()}catch(x){e.textContent="Compte non créé : connexion requise."}}
+function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function pd(id){return P[id]||{blocked:[],opened:[],rdv:[]}}
+function cp(id){var p=pd(id);return{blocked:(p.blocked||[]).slice(),opened:(p.opened||[]).slice(),rdv:(p.rdv||[]).map(function(r){return Object.assign({},r)})}}
+function busyOn(id,date){var p=pd(id);if((p.blocked||[]).indexOf(date)>-1)return true;if((p.opened||[]).indexOf(date)>-1)return false;return(+date.replace(/-/g,"")+id*13)%7<2}
+function put(id,p,quiet){P[id]=p;var m=function(t){if(quiet)return;st.msg=t;var e=$("plerr");if(e)e.textContent=t};
+ if(!DB){m("Visible ici seulement : connexion requise pour enregistrer.");return}
+ DB.collection("planning").doc(String(id)).set(p).catch(function(){m("Modification non enregistrée : connexion requise.")})}
+function rdvHtml(p){var L={new:"À traiter",ok:"Confirmé",no:"Refusé"};
+ var l=p.rdv.slice().sort(function(a,b){return(a.date+a.time)<(b.date+b.time)?-1:1});
+ return(l.length?l.map(function(r){var dv=r.type==="Demande de devis";
+  return'<div class="rd"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><b class="serif" style="font-size:18px">'+(dv?'Devis, mariage le '+fr(r.date):fr(r.date)+' à '+esc(r.time))+'</b><span class="badge '+r.status+'">'+(dv&&r.status==="ok"?"Traité":L[r.status])+'</span></div><div class="meta">'+esc(r.who)+', '+esc(r.type)+(r.note?'. '+esc(r.note):'')+'</div><div class="acts">'+
+  (r.status==="new"?'<button class="btn sm" data-ra="ok" data-rid="'+esc(r.id)+'">'+(dv?'Marquer traité':'Confirmer')+'</button>'+(dv?'':'<button class="btn alt sm" data-ra="no" data-rid="'+esc(r.id)+'">Refuser</button>'):'')+'<button class="btn alt sm" data-ra="del" data-rid="'+esc(r.id)+'">Supprimer</button></div></div>'}).join(""):'<p class="meta">Aucun rendez-vous pour le moment. Les demandes de devis des couples apparaîtront ici.</p>')+
+ '<form class="f" id="rf" style="margin-top:22px;border-top:1px solid var(--line);padding-top:18px"><h3 class="serif" style="font-size:20px">Ajouter un rendez-vous</h3><label>Date<input type="date" id="rd" min="'+iso(new Date())+'"></label><label>Heure<input type="time" id="rt"></label><label>Prénoms du couple<input type="text" id="rw"></label><label>Type<select id="ry"><option>Visite</option><option>Dégustation</option><option>Essai</option><option>Rendez-vous découverte</option></select></label><button class="btn" type="submit">Ajouter le rendez-vous</button></form>'}
+function calHtml(p){var now=new Date(),f=new Date(now.getFullYear(),now.getMonth()+st.pm,1),y=f.getFullYear(),m=f.getMonth(),n=new Date(y,m+1,0).getDate(),off=(f.getDay()+6)%7,today=iso(now);
+ var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><button class="heart" data-pm="-1" aria-label="Mois précédent"'+(st.pm<=0?' disabled':'')+'>‹</button><b class="serif" style="font-size:20px;text-transform:capitalize">'+f.toLocaleDateString("fr-FR",{month:"long",year:"numeric"})+'</b><button class="heart" data-pm="1" aria-label="Mois suivant">›</button></div><div class="cal">'+["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"].map(function(x){return'<div class="dh">'+x+'</div>'}).join("");
+ for(var i=0;i<off;i++)h+='<div></div>';
+ for(var d=1;d<=n;d++){var sd=iso(new Date(y,m,d)),past=sd<today,b=busyOn(st.pv,sd),c=p.rdv.filter(function(r){return r.date===sd&&r.status!=="no"}).length;
+  h+='<button class="day'+(past?' dis':b?' off':'')+'" data-dy="'+sd+'"'+(past?' disabled':'')+' aria-label="'+fr(sd)+(b?', complet':', libre')+'">'+d+(c?'<i></i>':'')+'</button>'}
+ return h+'</div><p class="meta" style="margin-top:14px">Touchez une date pour la fermer ou la rouvrir. Les couples la voient « Complet » ou « Libre ». Un point doré indique une demande ou un rendez-vous.</p>'}
+function hdr(){$("hl").innerHTML=st.me?'Mon planning':'<span class="dk">Espace prestataire</span><span class="mb">Prestataire</span>';$("hc").innerHTML=st.cl?'Mon compte':'<span class="dk">Espace couple</span><span class="mb">Couple</span>'}
+function plan(){hdr();if(!st.me){login();return}st.pv=st.me;plan2()}
+function plan20(){var p=pd(st.pv);
+ open('<h2 class="serif" style="text-align:left;font-size:28px;margin-bottom:4px">Mon planning</h2><p class="meta" style="margin:0 0 14px">Gérez vos rendez-vous et vos dates de mariage.</p><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><b class="serif" style="font-size:20px">'+V[st.pv-1][1]+'</b><button class="btn alt sm" data-out="1">Se déconnecter</button></div>'+
+ statsHtml(p)+'<div class="chips" style="justify-content:flex-start;margin:18px 0"><button class="chip" data-pt="rdv" aria-pressed="'+(st.pt==="rdv")+'">Rendez-vous</button><button class="chip" data-pt="cal" aria-pressed="'+(st.pt==="cal")+'">Calendrier des dates</button><button class="chip" data-pt="msg" aria-pressed="'+(st.pt==="msg")+'">Messages'+unr()+'</button></div>'+(st.pt==="rdv"?rdvHtml(p):st.pt==="msg"?msgHtml():calHtml(p))+'<div class="err" id="plerr" style="margin-top:12px">'+(st.msg||"")+'</div>',true)}
+function addRdv(){var d=$("rd").value,t=$("rt").value,w=$("rw").value.trim(),e=$("plerr");
+ if(!d||!t||!w){e.textContent="Indiquez la date, l’heure et les prénoms du couple.";return}
+ var p=cp(st.pv);if(p.rdv.some(function(r){return r.date===d&&r.time===t&&r.status!=="no"})){e.textContent="Ce créneau est déjà pris. Choisissez une autre heure.";return}
+ p.rdv.push({id:Date.now()+"-"+st.pv,date:d,time:t,who:w,type:$("ry").value,status:"ok"});put(st.pv,p);plan()}
+document.addEventListener("change",function(e){if(e.target.id==="pvs"){st.pv=+e.target.value;st.msg="";plan()}});
+$("dlg").addEventListener("close",function(){st.inPlan=false;st.inChat=false});
+function localDb(){var mem={},subs={};
+ function load(n){try{var r=localStorage.getItem("wf_"+n);if(r)return JSON.parse(r)}catch(e){}return mem[n]||{}}
+ function save(n,o){mem[n]=o;try{localStorage.setItem("wf_"+n,JSON.stringify(o))}catch(e){}}
+ function snap(n){var o=load(n);return{docs:Object.keys(o).map(function(id){return{id:id,data:function(){return o[id]}}})}}
+ function fire(n){(subs[n]||[]).forEach(function(f){f(snap(n))})}
+ window.addEventListener("storage",function(e){if(e.key&&e.key.indexOf("wf_")===0)fire(e.key.slice(3))});
+ return{collection:function(n){return{doc:function(id){return{set:function(d){var o=load(n);o[id]=JSON.parse(JSON.stringify(d));save(n,o);setTimeout(function(){fire(n)},0);return Promise.resolve()}}},onSnapshot:function(f){(subs[n]=subs[n]||[]).push(f);setTimeout(function(){f(snap(n))},0)}}}}}
+async function seed(c){try{if(localStorage.getItem("wf_seeded"))return;localStorage.setItem("wf_seeded","1")}catch(e){}
+ try{var s1=rnd(),s2=rnd(),h1=await hpw("demo12345",s1),h2=await hpw("demo12345",s2),d=new Date();d.setDate(d.getDate()+30);
+ c.collection("accounts").doc("1").set({user:"demo",salt:s1,hash:h1});
+ c.collection("clients").doc("demo").set({w:"Aylin et Mehmet",c:"demo@weddingfind.fr",d:st.date,salt:s2,h:h2,favs:[],reqs:[{v:1,d:st.date}]});
+ c.collection("planning").doc("1").set({blocked:[],opened:[],rdv:[{id:"d1",date:st.date,time:"",who:"Aylin et Mehmet",type:"Demande de devis",status:"new",note:"demo@weddingfind.fr, 200 invités"},{id:"d2",date:iso(d),time:"15:00",who:"Aylin et Mehmet",type:"Visite",status:"ok"}]});
+ c.collection("messages").doc("demo_1").set({c:"demo",v:1,w:"Aylin et Mehmet",msgs:[{f:"c",x:"Bonjour, êtes-vous disponible à notre date ? Quel est le tarif pour 200 invités ?",t:Date.now()-3600000}]});c.collection("quotes").doc("q0").set({c:"demo",v:1,cn:"Aylin et Mehmet",ct:"demo@weddingfind.fr",g:200,d:st.date,b:6000,need:"Réception de 200 invités, avec espace henné.",st:"req",t:Date.now()-7200000});c.collection("notifs").doc("n0").set({to:"v:1",x:"Nouvelle demande de devis de Aylin et Mehmet",t:Date.now()-7200000,r:0})}catch(e){}}
+(async function(){try{var c=null;try{c=await claude.use("db")}catch(e){}if(!c){c=localDb();st.local=true;await seed(c)}DB=c;
+ if(st.local){var ft=document.querySelector("footer .wrap");if(ft)ft.insertAdjacentHTML("beforeend",'<p class="meta">Version de démonstration : comptes, plannings et messages sont enregistrés dans ce navigateur uniquement.</p>')}
+ c.collection("accounts").onSnapshot(function(sn){A={};sn.docs.forEach(function(d){var x=d.data();if(x)A[d.id]=x})},function(){});
+ c.collection("clients").onSnapshot(function(sn){CL={};sn.docs.forEach(function(d){var x=d.data();if(x)CL[d.id]=x});if(st.cl&&CL[st.cl]&&!st.clInit){st.clInit=1;var x=CL[st.cl];if(x.d)st.date=x.d;st.sel=(x.favs||[]).slice();$("dt").value=st.date;grid()}},function(){});
+ c.collection("messages").onSnapshot(function(sn){M={};sn.docs.forEach(function(d){var x=d.data();if(x&&x.msgs&&x.msgs.length)M[d.id]=x});rerenderMsg();shRefresh()},function(){});
+ c.collection("quotes").onSnapshot(function(sn){Q={};sn.docs.forEach(function(d){var x=d.data();if(x)Q[d.id]=x});shRefresh()},function(){});
+ c.collection("appts").onSnapshot(function(sn){AP={};sn.docs.forEach(function(d){var x=d.data();if(x)AP[d.id]=x});shRefresh()},function(){});
+ c.collection("notifs").onSnapshot(function(sn){N={};sn.docs.forEach(function(d){var x=d.data();if(x)N[d.id]=x});shRefresh()},function(){});
+ c.collection("planning").onSnapshot(function(sn){P={};sn.docs.forEach(function(d){var x=d.data();if(x)P[d.id]=x});grid();
+  var a=document.activeElement;if($("dlg").open&&st.inPlan&&!(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)))plan()},function(){})}catch(e){}})();
+try{var sm=sessionStorage.getItem("dhme");if(sm&&V[+sm-1])st.me=+sm}catch(x){}try{var sc=sessionStorage.getItem("dhcl");if(sc)st.cl=sc}catch(x){}hdr();
+tiles();route();
+</script>
+</body>
+</html>
